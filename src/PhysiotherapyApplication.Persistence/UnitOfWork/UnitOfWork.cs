@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.EntityFrameworkCore.Storage;
+using PhysiotherapyApplication.Application.Contracts.Persistence.UnitOfWork;
 using PhysiotherapyApplication.Persistence.Contexts;
 
 namespace PhysiotherapyApplication.Persistence.UnitOfWork;
@@ -19,6 +20,7 @@ public class UnitOfWork : IUnitOfWork
     {
         try
         {
+            await SaveChangesAsync();
             if (state)
                 await _transaction.CommitAsync();
 

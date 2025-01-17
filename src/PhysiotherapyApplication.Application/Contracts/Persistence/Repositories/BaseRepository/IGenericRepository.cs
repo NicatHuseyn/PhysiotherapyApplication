@@ -3,13 +3,13 @@ using System.Linq.Expressions;
 using PhysiotherapyApplication.Domain.Entities.Common;
 using PhysiotherapyApplication.Application.Paging;
 
-namespace PhysiotherapyApplication.Application.Repositories;
+namespace PhysiotherapyApplication.Application.Contracts.Persistence.Repositories.BaseRepository;
 
 /// <summary>
 /// Generic repository interface for entity operations with advanced querying capabilities
 /// </summary>
 /// <typeparam name="TEntity">The entity type that inherits from BaseEntity and implements IQuery</typeparam>
-public interface IGenericRepository<TEntity>:IQuery<TEntity> where TEntity : BaseEntity
+public interface IGenericRepository<TEntity> : IQuery<TEntity> where TEntity : BaseEntity
 {
     /// <summary>
     /// Retrieves a single entity based on the specified predicate with optional include expressions

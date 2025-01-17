@@ -1,4 +1,4 @@
-﻿namespace PhysiotherapyApplication.Application.Repositories;
+﻿namespace PhysiotherapyApplication.Application.Contracts.Persistence.Repositories;
 
 /// <summary>
 /// Defines a contract for entities that support custom querying capabilities

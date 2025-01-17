@@ -18,5 +18,7 @@ public class BaseEntityConfiguration<TEntity> : IEntityTypeConfiguration<TEntity
 
         builder.Property(i => i.DeleteDate)
         .HasColumnType("datetime2");
+
+        builder.HasQueryFilter(i=>!i.DeleteDate.HasValue);
     }
 }

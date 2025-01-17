@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore;
 using PhysiotherapyApplication.Application.Paging;
-using PhysiotherapyApplication.Application.Repositories;
 using PhysiotherapyApplication.Domain.Entities.Common;
 using System.Collections;
+using PhysiotherapyApplication.Application.Contracts.Persistence.Repositories.BaseRepository;
 
-namespace PhysiotherapyApplication.Persistence.Repositories;
+namespace PhysiotherapyApplication.Persistence.Repositories.BaseRepository;
 
 /// <summary>
 /// Implements the IRepository interface using Entity Framework Core.
@@ -18,7 +18,7 @@ namespace PhysiotherapyApplication.Persistence.Repositories;
 /// </summary>
 /// <typeparam name="TEntity">The type of entity this repository manages</typeparam>
 /// <typeparam name="TContext">The type of DbContext used for database operations</typeparam>
-public class GenericRepository<TEntity, TContext>(TContext context):IGenericRepository<TEntity> where TEntity : BaseEntity
+public class GenericRepository<TEntity, TContext>(TContext context) : IGenericRepository<TEntity> where TEntity : BaseEntity
     where TContext : IdentityDbContext
 {
     /// <summary>
