@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PhysiotherapyApplication.Domain\PhysiotherapyApplication.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
