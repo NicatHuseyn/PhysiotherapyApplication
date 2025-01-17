@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C8F13B3F-848F-4E4D-AF56-2E555FFE48F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhysiotherapyApplication.Domain", "src\PhysiotherapyApplication.Domain\PhysiotherapyApplication.Domain.csproj", "{9694D6A4-48E5-46AA-B518-00A13C3893F6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhysiotherapyApplication.Application", "src\PhysiotherapyApplication.Application\PhysiotherapyApplication.Application.csproj", "{C5E4CCAB-7F8A-4098-B6FD-0F30853B124E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhysiotherapyApplication.Persistence", "src\PhysiotherapyApplication.Persistence\PhysiotherapyApplication.Persistence.csproj", "{152E7208-178E-4B7C-BC4B-9FD19BABCED7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhysiotherapyApplication.WebApi", "src\PhysiotherapyApplication.WebApi\PhysiotherapyApplication.WebApi.csproj", "{8D027FFD-8A6B-4520-8F1F-398AD15DF131}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9694D6A4-48E5-46AA-B518-00A13C3893F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9694D6A4-48E5-46AA-B518-00A13C3893F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9694D6A4-48E5-46AA-B518-00A13C3893F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9694D6A4-48E5-46AA-B518-00A13C3893F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5E4CCAB-7F8A-4098-B6FD-0F30853B124E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5E4CCAB-7F8A-4098-B6FD-0F30853B124E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5E4CCAB-7F8A-4098-B6FD-0F30853B124E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5E4CCAB-7F8A-4098-B6FD-0F30853B124E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{152E7208-178E-4B7C-BC4B-9FD19BABCED7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{152E7208-178E-4B7C-BC4B-9FD19BABCED7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{152E7208-178E-4B7C-BC4B-9FD19BABCED7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{152E7208-178E-4B7C-BC4B-9FD19BABCED7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D027FFD-8A6B-4520-8F1F-398AD15DF131}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D027FFD-8A6B-4520-8F1F-398AD15DF131}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D027FFD-8A6B-4520-8F1F-398AD15DF131}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D027FFD-8A6B-4520-8F1F-398AD15DF131}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9694D6A4-48E5-46AA-B518-00A13C3893F6} = {C8F13B3F-848F-4E4D-AF56-2E555FFE48F3}
+		{C5E4CCAB-7F8A-4098-B6FD-0F30853B124E} = {C8F13B3F-848F-4E4D-AF56-2E555FFE48F3}
+		{152E7208-178E-4B7C-BC4B-9FD19BABCED7} = {C8F13B3F-848F-4E4D-AF56-2E555FFE48F3}
+		{8D027FFD-8A6B-4520-8F1F-398AD15DF131} = {C8F13B3F-848F-4E4D-AF56-2E555FFE48F3}
+	EndGlobalSection
+EndGlobal
