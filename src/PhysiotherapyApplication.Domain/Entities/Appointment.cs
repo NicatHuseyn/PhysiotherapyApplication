@@ -15,5 +15,7 @@ public class Appointment : BaseEntity
     public string? CancellationReason { get; set; }
     public decimal? ConsultationFee { get; set; }
     public bool IsPaid { get; set; }
+
+    public Guid TreatmentId { get; set; }
     public virtual Treatment Treatment { get; set; }
 }

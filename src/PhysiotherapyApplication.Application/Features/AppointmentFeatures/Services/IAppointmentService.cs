@@ -3,23 +3,24 @@ using System.Linq.Expressions;
 using PhysiotherapyApplication.Application.Wrappers;
 using PhysiotherapyApplication.Domain.Entities;
 using PhysiotherapyApplication.Application.Paging;
+using PhysiotherapyApplication.Application.Features.AppointmentFeatures.DTOs;
 
 namespace PhysiotherapyApplication.Application.Features.AppointmentFeatures.Services;
 
 public interface IAppointmentService
 {
-    Task<ServiceResult<Appointment>> GetAsync(
-        Expression<Func<Appointment, bool>> predicate,
-        Func<IQueryable<Appointment>, IIncludableQueryable<Appointment, object>>? include = null,
+    Task<ServiceResult<AppointmentDto>> GetAsync(
+        Expression<Func<AppointmentDto, bool>> predicate,
+        Func<IQueryable<AppointmentDto>, IIncludableQueryable<AppointmentDto, object>>? include = null,
         bool withDeleted = false,
         bool enableTracking = true,
         CancellationToken cancellationToken = default
         );
 
-    Task<ServiceResult<Pagination<Appointment>>> GetListAsync(
-         Expression<Func<Appointment, bool>> predicate,
-        Func<IQueryable<Appointment>, IOrderedQueryable<Appointment>>? orderBy = null,
-        Func<IQueryable<Appointment>, IIncludableQueryable<Appointment, object>>? include = null,
+    Task<ServiceResult<Pagination<AppointmentDto>>> GetListAsync(
+         Expression<Func<AppointmentDto, bool>> predicate,
+        Func<IQueryable<AppointmentDto>, IOrderedQueryable<AppointmentDto>>? orderBy = null,
+        Func<IQueryable<AppointmentDto>, IIncludableQueryable<AppointmentDto, object>>? include = null,
         int index = 0,
         int size = 10,
         bool withDeleted = false,
@@ -28,21 +29,23 @@ public interface IAppointmentService
         );
 
     Task<ServiceResult<bool>> AnyAsync(
-        Expression<Func<Appointment, bool>>? predicate = null,
+        Expression<Func<AppointmentDto, bool>>? predicate = null,
         bool withDeleted = false,
         bool enableTracking = true,
         CancellationToken cancellationToken = default
         );
 
-    Task<ServiceResult<Appointment>> AddAsync(Appointment model);
+    Task<ServiceResult<AppointmentDto>> AnyAsync(string Id);
 
-    Task<ServiceResult<ICollection<Appointment>>> AddRangeAsync(ICollection<Appointment> entities);
+    Task<ServiceResult<CreateAppointmentDto>> AddAsync(CreateAppointmentDto model);
 
-    ServiceResult<Appointment> Udpated(Appointment model);
+    Task<ServiceResult<ICollection<CreateAppointmentDto>>> AddRangeAsync(ICollection<CreateAppointmentDto> entities);
 
-    ServiceResult<ICollection<Appointment>> UpdateRange(ICollection<Appointment> entities);
+    ServiceResult<UpdateAppointmentDto> Udpated(UpdateAppointmentDto model);
 
-    Task<ServiceResult<Appointment>> DeleteAsync(Appointment model, bool permanent = false);
+    ServiceResult<ICollection<UpdateAppointmentDto>> UpdateRange(ICollection<UpdateAppointmentDto> entities);
 
-    Task<ServiceResult<ICollection<Appointment>>> DeleteRangeAsync(ICollection<Appointment> entities, bool permanent = false);
+    Task<ServiceResult<AppointmentDto>> DeleteAsync(AppointmentDto model, bool permanent = false);
+
+    Task<ServiceResult<ICollection<AppointmentDto>>> DeleteRangeAsync(ICollection<AppointmentDto> entities, bool permanent = false);
 }

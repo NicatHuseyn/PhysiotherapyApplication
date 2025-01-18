@@ -8,5 +8,5 @@ using PhysiotherapyApplication.Domain.Entities;
 
 namespace PhysiotherapyApplication.Application.Features.AppointmentFeatures.DTOs
 {
-    public record AppointmentDto(Guid Id, Guid PatientId, Patient Patient, DateTime AppointmentDateTime, TimeSpan Duration, AppointmentStatus AppointmentStatus, string Notes, string CancellationReason, decimal ConsultationFee, bool IsPaid, Treatment Treatment);
+    public record AppointmentDto(Guid Id, Guid PatientId, Patient Patient, DateTime AppointmentDateTime, TimeSpan Duration, AppointmentStatus AppointmentStatus, string Notes, string CancellationReason, decimal? ConsultationFee, bool IsPaid, Guid TreatmentId);
 }

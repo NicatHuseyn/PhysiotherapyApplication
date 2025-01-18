@@ -11,13 +11,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="MediatR" Version="12.4.1" />
     <PackageReference Include="MediatR.Extensions.Microsoft.AspNetCore" Version="6.0.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\" />
+    <Folder Include="Features\AppointmentFeatures\Create\" />
+    <Folder Include="Features\AppointmentFeatures\Delete\" />
+    <Folder Include="Features\AppointmentFeatures\Mapping\" />
+    <Folder Include="Features\AppointmentFeatures\Update\" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,8 @@
 ﻿using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore.Query;
 using PhysiotherapyApplication.Application.Contracts.Persistence.Repositories;
+using PhysiotherapyApplication.Application.Contracts.Persistence.UnitOfWork;
+using PhysiotherapyApplication.Application.Features.AppointmentFeatures.DTOs;
 using PhysiotherapyApplication.Application.Features.AppointmentFeatures.Services;
 using PhysiotherapyApplication.Application.Paging;
 using PhysiotherapyApplication.Application.Wrappers;
@@ -8,63 +10,65 @@ using PhysiotherapyApplication.Domain.Entities;
 
 namespace PhysiotherapyApplication.Persistence.Services.AppointmentService;
 
-public class AppointmentService(IAppointmentRepository appointmentRepository) : IAppointmentService
+public class AppointmentService(IAppointmentRepository appointmentRepository, IUnitOfWork unitOfWork) : IAppointmentService
 {
-    public async Task<ServiceResult<Appointment>> AddAsync(Appointment model)
+    public async Task<ServiceResult<Appointment>> AddAsync(CreateAppointmentDto model)
     {
-        var result = await appointmentRepository.AddAsync(model);
+        var result = await appointmentRepository.AddAsync(new Appointment
+        {
+            AppointmentDateTime = model.AppointmentDateTime,
+            Status = model.AppointmentStatus,
+            CancellationReason = model.CancellationReason,
+            ConsultationFee = model.ConsultationFee,
+            IsPaid = model.isPaid,
+            Notes = model.Notes,
+            PatientId = model.PatientId,
+            TreatmentId = model.TreatmentId,
+            Duration = model.Duration
+        });
+
+        await unitOfWork.CommitAsync();
 
         return ServiceResult<Appointment>.Success(result);
     }
 
-    public async Task<ServiceResult<ICollection<Appointment>>> AddRangeAsync(ICollection<Appointment> entities)
+    public Task<ServiceResult<ICollection<CreateAppointmentDto>>> AddRangeAsync(ICollection<CreateAppointmentDto> entities)
     {
-        var result = await appointmentRepository.AddRangeAsync(entities);
-        return ServiceResult<ICollection<Appointment>>.Success(result);
+        throw new NotImplementedException();
     }
 
-    public async Task<ServiceResult<bool>> AnyAsync(Expression<Func<Appointment, bool>>? predicate = null, bool withDeleted = false, bool enableTracking = true, CancellationToken cancellationToken = default)
+    public Task<ServiceResult<bool>> AnyAsync(Expression<Func<AppointmentDto, bool>>? predicate = null, bool withDeleted = false, bool enableTracking = true, CancellationToken cancellationToken = default)
     {
-       var result = await appointmentRepository.AnyAsync(predicate,withDeleted,enableTracking,cancellationToken);
-
-        return ServiceResult<bool>.Success(result);
+        throw new NotImplementedException();
     }
 
-    public async Task<ServiceResult<Appointment>> DeleteAsync(Appointment model, bool permanent = false)
+    public Task<ServiceResult<AppointmentDto>> DeleteAsync(AppointmentDto model, bool permanent = false)
     {
-        var result = await appointmentRepository.DeleteAsync(model, permanent);
-        return ServiceResult<Appointment>.Success(result);
+        throw new NotImplementedException();
     }
 
-    public async Task<ServiceResult<ICollection<Appointment>>> DeleteRangeAsync(ICollection<Appointment> entities, bool permanent = false)
+    public Task<ServiceResult<ICollection<AppointmentDto>>> DeleteRangeAsync(ICollection<AppointmentDto> entities, bool permanent = false)
     {
-        var result = await appointmentRepository.DeleteRangeAsync(entities, permanent);
-        return ServiceResult<ICollection<Appointment>>.Success(result);
+        throw new NotImplementedException();
     }
 
-    public async Task<ServiceResult<Appointment>> GetAsync(Expression<Func<Appointment, bool>> predicate, Func<IQueryable<Appointment>, IIncludableQueryable<Appointment, object>>? include = null, bool withDeleted = false, bool enableTracking = true, CancellationToken cancellationToken = default)
+    public Task<ServiceResult<AppointmentDto>> GetAsync(Expression<Func<AppointmentDto, bool>> predicate, Func<IQueryable<AppointmentDto>, IIncludableQueryable<AppointmentDto, object>>? include = null, bool withDeleted = false, bool enableTracking = true, CancellationToken cancellationToken = default)
     {
-        var result = await appointmentRepository.GetAsync(predicate,include,withDeleted,enableTracking, cancellationToken);
-
-        return ServiceResult<Appointment>.Success(result);
+        throw new NotImplementedException();
     }
 
-    public async Task<ServiceResult<Pagination<Appointment>>> GetListAsync(Expression<Func<Appointment, bool>> predicate, Func<IQueryable<Appointment>, IOrderedQueryable<Appointment>>? orderBy = null, Func<IQueryable<Appointment>, IIncludableQueryable<Appointment, object>>? include = null, int index = 0, int size = 10, bool withDeleted = false, bool enableTracking = true, CancellationToken cancellationToken = default)
+    public Task<ServiceResult<Pagination<AppointmentDto>>> GetListAsync(Expression<Func<AppointmentDto, bool>> predicate, Func<IQueryable<AppointmentDto>, IOrderedQueryable<AppointmentDto>>? orderBy = null, Func<IQueryable<AppointmentDto>, IIncludableQueryable<AppointmentDto, object>>? include = null, int index = 0, int size = 10, bool withDeleted = false, bool enableTracking = true, CancellationToken cancellationToken = default)
     {
-        var result = await appointmentRepository.GetListAsync(predicate,orderBy,include,index,size,withDeleted,enableTracking,cancellationToken);
-
-        return ServiceResult<Pagination<Appointment>>.Success(result);
+        throw new NotImplementedException();
     }
 
-    public ServiceResult<Appointment> Udpated(Appointment model)
+    public ServiceResult<UpdateAppointmentDto> Udpated(UpdateAppointmentDto model)
     {
-        var result = appointmentRepository.Udpated(model);
-        return ServiceResult<Appointment>.Success(result);
+        throw new NotImplementedException();
     }
 
-    public ServiceResult<ICollection<Appointment>> UpdateRange(ICollection<Appointment> entities)
+    public ServiceResult<ICollection<UpdateAppointmentDto>> UpdateRange(ICollection<UpdateAppointmentDto> entities)
     {
-        var result = appointmentRepository.UpdateRange(entities);
-        return ServiceResult<ICollection<Appointment>>.Success(result);
+        throw new NotImplementedException();
     }
 }
