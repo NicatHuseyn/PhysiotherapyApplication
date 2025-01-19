@@ -28,7 +28,7 @@ public static class PersistenceRegistration
 
         #endregion
 
-        services.AddScoped(typeof(IGenericRepository<>),typeof(GenericRepository<,>));
+        services.AddScoped(typeof(IGenericRepository<>),typeof(GenericRepository<>));
 
         services.AddScoped<IAppointmentRepository,AppointmentRepository>();
         services.AddScoped<IDoctorRepository, DoctorRepository>();

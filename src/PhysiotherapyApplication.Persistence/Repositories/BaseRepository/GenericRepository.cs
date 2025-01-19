@@ -9,6 +9,7 @@ using PhysiotherapyApplication.Application.Paging;
 using PhysiotherapyApplication.Domain.Entities.Common;
 using System.Collections;
 using PhysiotherapyApplication.Application.Contracts.Persistence.Repositories.BaseRepository;
+using PhysiotherapyApplication.Persistence.Contexts;
 
 namespace PhysiotherapyApplication.Persistence.Repositories.BaseRepository;
 
@@ -18,9 +19,9 @@ namespace PhysiotherapyApplication.Persistence.Repositories.BaseRepository;
 /// </summary>
 /// <typeparam name="TEntity">The type of entity this repository manages</typeparam>
 /// <typeparam name="TContext">The type of DbContext used for database operations</typeparam>
-public class GenericRepository<TEntity, TContext>(TContext context) : IGenericRepository<TEntity> where TEntity : BaseEntity
-    where TContext : IdentityDbContext
+public class GenericRepository<TEntity>(PhysiotherapyApplicationDbContext context) : IGenericRepository<TEntity> where TEntity : BaseEntity
 {
+
     /// <summary>
     /// Asynchronously adds a new entity to the database.
     /// </summary>

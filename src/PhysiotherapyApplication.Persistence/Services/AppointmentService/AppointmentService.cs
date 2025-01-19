@@ -23,7 +23,7 @@ public class AppointmentService(IAppointmentRepository repository, IMapper mappe
             await repository.AddAsync(appointment);
             await unitOfWork.CommitAsync();
 
-            return ServiceResult<CreateAppointmentResponseDto>.SuccessAsCreated(new CreateAppointmentResponseDto(appointment.Id), $"api/products/{appointment.Id}");
+            return ServiceResult<CreateAppointmentResponseDto>.SuccessAsCreated(new CreateAppointmentResponseDto(appointment.Id), $"api/appointments/{appointment.Id}");
         }
         catch (Exception ex)
         {

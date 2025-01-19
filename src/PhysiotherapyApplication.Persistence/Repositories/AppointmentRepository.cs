@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using PhysiotherapyApplication.Application.Contracts.Persistence.Repositories;
 using PhysiotherapyApplication.Domain.Entities;
+using PhysiotherapyApplication.Persistence.Contexts;
 using PhysiotherapyApplication.Persistence.Repositories.BaseRepository;
 
 namespace PhysiotherapyApplication.Persistence.Repositories;
 
-public class AppointmentRepository(IdentityDbContext context) : GenericRepository<Appointment, IdentityDbContext>(context), IAppointmentRepository
+public class AppointmentRepository(PhysiotherapyApplicationDbContext context) : GenericRepository<Appointment>(context), IAppointmentRepository
 {
 }
