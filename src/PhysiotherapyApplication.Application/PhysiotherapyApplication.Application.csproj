@@ -17,11 +17,4 @@
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\AppointmentFeatures\Create\" />
-    <Folder Include="Features\AppointmentFeatures\Delete\" />
-    <Folder Include="Features\AppointmentFeatures\Mapping\" />
-    <Folder Include="Features\AppointmentFeatures\Update\" />
-  </ItemGroup>
-
 </Project>

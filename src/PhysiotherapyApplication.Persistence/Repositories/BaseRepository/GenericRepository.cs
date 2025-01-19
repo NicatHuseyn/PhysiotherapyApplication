@@ -134,7 +134,7 @@ public class GenericRepository<TEntity, TContext>(TContext context) : IGenericRe
     /// <param name="enableTracking">If true, enables Entity Framework change tracking</param>
     /// <param name="cancellationToken">Token to cancel the operation if needed</param>
     /// <returns>Paginated result containing entities and total count</returns>
-    public async Task<Pagination<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> predicate, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null, int index = 0, int size = 10, bool withDeleted = false, bool enableTracking = true, CancellationToken cancellationToken = default)
+    public async Task<Pagination<TEntity>> GetListPaginationAsync(Expression<Func<TEntity, bool>>? predicate, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null, int index = 0, int size = 10, bool withDeleted = false, bool enableTracking = true, CancellationToken cancellationToken = default)
     {
         IQueryable<TEntity> query = Query();
 
@@ -322,5 +322,29 @@ public class GenericRepository<TEntity, TContext>(TContext context) : IGenericRe
         {
             await SetEntityAsDeletedAsync(entity, permanent);
         }
+    }
+
+    public async Task<IEnumerable<TEntity>> GetAllAsync(bool enableTracking = true)
+    {
+        var query = context.Set<TEntity>().AsQueryable();
+        if (enableTracking)
+            query.AsNoTracking();
+        return await query.ToListAsync();
+    }
+
+    public async Task<IEnumerable<TEntity>> GetWhereAsync(Expression<Func<TEntity, bool>> predicate, bool enableTracking = true)
+    {
+        var query = context.Set<TEntity>().Where(predicate);
+        if (enableTracking)
+            query.AsNoTracking();
+        return await query.ToListAsync();
+    }
+
+    public async Task<TEntity> GetByIdAsync(Guid id, bool enableTracking = true)
+    {
+        var query = context.Set<TEntity>().AsQueryable();
+        if (enableTracking)
+            query.AsNoTracking();
+        return await query.FirstOrDefaultAsync(x=>x.Id == id);
     }
 }

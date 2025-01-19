@@ -15,10 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\PhysiotherapyApplication.Application\PhysiotherapyApplication.Application.csproj" />
     <ProjectReference Include="..\PhysiotherapyApplication.Persistence\PhysiotherapyApplication.Persistence.csproj" />
   </ItemGroup>

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using PhysiotherapyApplication.Application;
 using PhysiotherapyApplication.Domain.Entities.IdentityModels;
 using PhysiotherapyApplication.Persistence;
 using PhysiotherapyApplication.Persistence.Contexts;
@@ -22,6 +23,7 @@ builder.Configuration.SetBasePath(Directory.GetCurrentDirectory())
 
 #region Custom Extensions Services
 builder.Services.AddPersistenceService(builder.Configuration);
+builder.Services.AddApplicationService();
 #endregion
 
 #region Identity Configurations

@@ -1,12 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PhysiotherapyApplication.Domain.Entities.Enums;
-using PhysiotherapyApplication.Domain.Entities;
-
-namespace PhysiotherapyApplication.Application.Features.AppointmentFeatures.DTOs
+﻿namespace PhysiotherapyApplication.Application.Features.AppointmentFeatures.DTOs
 {
-    public record AppointmentDto(Guid Id, Guid PatientId, Patient Patient, DateTime AppointmentDateTime, TimeSpan Duration, AppointmentStatus AppointmentStatus, string Notes, string CancellationReason, decimal? ConsultationFee, bool IsPaid, Guid TreatmentId);
+    public record AppointmentDto
+        (
+        Guid Id,
+        DateTime CreateDate, 
+        DateTime? UpdateDate, 
+        DateTime? DeleteDate, 
+        Guid PatientId, 
+        string PatientName, 
+        DateTime? AppointmentDateTime, 
+        TimeSpan Duration, 
+        string Status, 
+        string Notes, 
+        string CancellationReason, 
+        decimal? ConsultationFee, 
+        bool isPaid, 
+        Guid TreatmentId, 
+        string TreatmentName);
 }

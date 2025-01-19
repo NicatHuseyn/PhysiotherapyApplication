@@ -11,6 +11,16 @@ namespace PhysiotherapyApplication.Application.Contracts.Persistence.Repositorie
 /// <typeparam name="TEntity">The entity type that inherits from BaseEntity and implements IQuery</typeparam>
 public interface IGenericRepository<TEntity> : IQuery<TEntity> where TEntity : BaseEntity
 {
+
+    #region Normal Get Repositories
+    Task<IEnumerable<TEntity>> GetAllAsync(bool enableTracking = true);
+    Task<IEnumerable<TEntity>> GetWhereAsync(Expression<Func<TEntity,bool>> predicate, bool enableTracking = true);
+    Task<TEntity> GetByIdAsync(Guid id, bool enableTracking = true);
+    #endregion
+
+
+    // Advanced Repositories
+
     /// <summary>
     /// Retrieves a single entity based on the specified predicate with optional include expressions
     /// </summary>
@@ -40,8 +50,8 @@ public interface IGenericRepository<TEntity> : IQuery<TEntity> where TEntity : B
     /// <param name="enableTracking">If true, enables Entity Framework change tracking</param>
     /// <param name="cancellationToken">Token to cancel the operation if needed</param>
     /// <returns>Paginated result containing entities and total count</returns>
-    Task<Pagination<TEntity>> GetListAsync(
-        Expression<Func<TEntity, bool>> predicate,
+    Task<Pagination<TEntity>> GetListPaginationAsync(
+        Expression<Func<TEntity, bool>>? predicate = null,
         Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
         Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,
         int index = 0,
@@ -109,4 +119,5 @@ public interface IGenericRepository<TEntity> : IQuery<TEntity> where TEntity : B
     /// <param name="permanent">If true, performs a permanent delete; if false, performs a soft delete</param>
     /// <returns>The collection of deleted entities</returns>
     Task<ICollection<TEntity>> DeleteRangeAsync(ICollection<TEntity> entities, bool permanent = false);
+
 }
