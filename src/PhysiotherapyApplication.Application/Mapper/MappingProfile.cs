@@ -5,7 +5,6 @@ namespace PhysiotherapyApplication.Application.Mapper;
 
 public class MappingProfile:Profile
 {
-
     public MappingProfile()
     {
         // Constructor calls a method to apply mappings from the current assembly

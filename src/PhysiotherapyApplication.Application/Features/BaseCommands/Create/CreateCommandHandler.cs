@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Net;
+using AutoMapper;
 using MediatR;
 using PhysiotherapyApplication.Application.Contracts.Persistence.Repositories.BaseRepository;
 using PhysiotherapyApplication.Application.Contracts.Persistence.UnitOfWork;
@@ -18,7 +19,7 @@ public class CreateCommandHandler<TRequest, TEntity, TId>(IGenericRepository<TEn
 			await repository.AddAsync(entityModel);
 			await unitOfWork.CommitAsync();
 
-			return ServiceResult<CreateCommandResponse<TId>>.Success(new CreateCommandResponse<TId>());
+			return ServiceResult<CreateCommandResponse<TId>>.SuccessAsCreated(new CreateCommandResponse<TId>(), $"api/models/{entityModel.Id}");
 		}
 		catch (Exception ex)
 		{

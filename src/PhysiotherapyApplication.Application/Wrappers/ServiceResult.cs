@@ -30,7 +30,7 @@ public class ServiceResult<T>
         };
     }
 
-    // When Data Creadted Return Status Code 201
+    // When Data Created Return Status Code 201
     public static ServiceResult<T> SuccessAsCreated(T data, string url)
     {
         return new ServiceResult<T>

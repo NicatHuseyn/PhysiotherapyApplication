@@ -19,7 +19,7 @@ public class DeleteCommandHandler<TEntity, TId>(IGenericRepository<TEntity> repo
 				return ServiceResult.Fail("Model Not Found");
 			await repository.DeleteAsync(entityModel);
 			await unitOfWork.CommitAsync();
-			return ServiceResult.Success();
+			return ServiceResult.Success(System.Net.HttpStatusCode.NoContent);
         }
 		catch (Exception ex)
 		{

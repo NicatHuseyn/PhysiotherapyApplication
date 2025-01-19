@@ -21,7 +21,7 @@ public class UpdateCommandHandler<TEntity, TModel>(IGenericRepository<TEntity> r
 			entityModel = mapper.Map(request,entityModel);
 
 			await unitOfWork.CommitAsync();
-			return ServiceResult.Success();
+			return ServiceResult.Success(System.Net.HttpStatusCode.NoContent);
 
 		}
 		catch (Exception ex)

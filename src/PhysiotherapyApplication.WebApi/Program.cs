@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using PhysiotherapyApplication.Application;
 using PhysiotherapyApplication.Domain.Entities.IdentityModels;
 using PhysiotherapyApplication.Persistence;
@@ -35,6 +36,11 @@ builder.Services
 
 
 builder.Services.AddControllers();
+
+// Closed .NET Default messages
+builder.Services.Configure<ApiBehaviorOptions>(options=>options.SuppressModelStateInvalidFilter = true);
+
+
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
@@ -49,6 +55,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+app.UseAuthentication();
 
 app.MapControllers();
 
