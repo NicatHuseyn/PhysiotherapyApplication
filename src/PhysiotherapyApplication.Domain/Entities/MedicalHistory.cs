@@ -4,7 +4,7 @@ namespace PhysiotherapyApplication.Domain.Entities;
 
 public class MedicalHistory : BaseEntity
 {
-    public Guid PatientId { get; set; }
+    public string PatientId { get; set; }
     public virtual Patient Patient { get; set; }
 
     public string ExistingConditions { get; set; }

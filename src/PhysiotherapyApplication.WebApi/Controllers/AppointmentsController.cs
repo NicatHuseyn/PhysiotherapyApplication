@@ -16,18 +16,19 @@ namespace PhysiotherapyApplication.WebApi.Controllers
     {
 
         [HttpGet]
-        public async Task<IActionResult> GetAll(GetAllQueryRequest<Appointment, AppointmentDto> request) => CreateActionResult(await mediator.Send(request));
+        public async Task<IActionResult> GetAll(GetAllQueryRequest<AppointmentDto> request) => CreateActionResult(await mediator.Send(request));
 
         [HttpGet("{Id:int}")]
-        public async Task<IActionResult> GetById(GetByIdQueryRequest<Appointment, AppointmentDto> request) => CreateActionResult(await mediator.Send(request));
+        public async Task<IActionResult> GetById(GetByIdQueryRequest<AppointmentDto> request) => CreateActionResult(await mediator.Send(request));
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateCommandRequest<CreateAppointmentRequestDto, Appointment, Guid> request) => CreateActionResult(await mediator.Send(request));
+        public async Task<IActionResult> Create(CreateCommandRequest<CreateAppointmentRequestDto,CreateAppointmentResponseDto> request) => CreateActionResult(await mediator.Send(request));
+
 
         [HttpPut("{Id:int}")]
-        public async Task<IActionResult> Update(UpdateCommandRequest<Appointment, UpdateAppointmentDto> request) => CreateActionResult(await mediator.Send(request));
+        public async Task<IActionResult> Update(UpdateCommandRequest<UpdateAppointmentDto> request) => CreateActionResult(await mediator.Send(request));
 
-        [HttpDelete("{Id}")]
+        [HttpDelete("{Id:int}")]
         public async Task<IActionResult> Delete(DeleteCommandRequest<Appointment> request) => CreateActionResult(await mediator.Send(request));
     }
 }

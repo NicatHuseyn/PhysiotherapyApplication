@@ -16,6 +16,8 @@ public class PhysiotherapyApplicationDbContext(DbContextOptions options) : Ident
     public DbSet<MedicalHistory> MedicalHistories { get; set; }
     public DbSet<Prescription> Prescriptions { get; set; }
     public DbSet<Document> Documents { get; set; }
+    public DbSet<DoctorDetail> DoctorDetails { get; set; }
+    public DbSet<PatientDetail> PatientDetails { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

@@ -5,35 +5,57 @@ using PhysiotherapyApplication.Persistence.EntityConfigurations;
 
 namespace PhysiotherapyApplication.Persistence.EntityTypeConfigurations;
 
-public class TreatmentConfiguration:BaseEntityConfiguration<Treatment>
+public class TreatmentConfiguration : BaseEntityConfiguration<Treatment>
 {
     public override void Configure(EntityTypeBuilder<Treatment> builder)
     {
-        builder.Property(t => t.Diagnosis).IsRequired().HasMaxLength(1000);
-        builder.Property(t => t.TreatmentPlan).IsRequired().HasMaxLength(1000);
-        builder.Property(t => t.Date).IsRequired();
-        builder.Property(t => t.Progress).HasMaxLength(1000);
-        builder.Property(t => t.Notes).HasMaxLength(1000);
+        base.Configure(builder);
+
+        builder.Property(t => t.Diagnosis)
+               .IsRequired()
+               .HasMaxLength(500);
+
+        builder.Property(t => t.TreatmentPlan)
+               .IsRequired()
+               .HasMaxLength(1000);
+
+        builder.Property(t => t.Date)
+               .IsRequired();
+
+        builder.Property(t => t.Progress)
+               .HasMaxLength(500);
+
+        builder.Property(t => t.Notes)
+               .HasMaxLength(1000);
+
+        builder.Property(t => t.NextAppointmentDate);
+
+        builder.Property(t => t.RequiresFollowUp)
+               .IsRequired();
 
         builder.HasOne(t => t.Patient)
-            .WithMany(p => p.Treatments)
-            .HasForeignKey(t => t.PatientId)
-            .OnDelete(DeleteBehavior.Restrict);
+               .WithMany(p => p.Treatments)
+               .HasForeignKey(t => t.PatientId)
+               .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne(t => t.Appointment)
-            .WithOne(a => a.Treatment)
-            .HasForeignKey<Treatment>(t => t.AppointmentId);
+               .WithOne(a => a.Treatment)
+               .HasForeignKey<Treatment>(t => t.AppointmentId)
+               .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasMany(t => t.Exercises)
-            .WithOne(e => e.Treatment)
-            .HasForeignKey(e => e.TreatmentId);
+               .WithOne(e => e.Treatment)
+               .HasForeignKey(e => e.TreatmentId)
+               .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasMany(t => t.Prescriptions)
-            .WithOne(p => p.Treatment)
-            .HasForeignKey(p => p.TreatmentId);
+               .WithOne(p => p.Treatment)
+               .HasForeignKey(p => p.TreatmentId)
+               .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasMany(t => t.Documents)
-            .WithOne(d => d.Treatment)
-            .HasForeignKey(d => d.TreatmentId);
+               .WithOne(d => d.Treatment)
+               .HasForeignKey(d => d.TreatmentId)
+               .OnDelete(DeleteBehavior.Restrict);
     }
 }

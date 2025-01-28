@@ -4,7 +4,7 @@ namespace PhysiotherapyApplication.Domain.Entities;
 
 public class Document : BaseEntity
 {
-    public Guid? PatientId { get; set; }
+    public string? PatientId { get; set; }
     public virtual Patient Patient { get; set; }
 
     public Guid? TreatmentId { get; set; }

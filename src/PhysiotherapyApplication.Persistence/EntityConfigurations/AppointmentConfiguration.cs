@@ -8,22 +8,38 @@ public class AppointmentConfiguration : BaseEntityConfiguration<Appointment>
 {
     public override void Configure(EntityTypeBuilder<Appointment> builder)
     {
-        builder.Property(a => a.AppointmentDateTime).IsRequired();
-        builder.Property(a => a.Duration).IsRequired();
-        builder.Property(a => a.Notes).IsRequired().HasMaxLength(500);
-        builder.Property(a => a.CancellationReason).IsRequired().HasMaxLength(500);
-        builder.Property(a => a.ConsultationFee).HasColumnType("decimal(18,2)");
+        base.Configure(builder);
+
+        builder.Property(a => a.AppointmentDateTime)
+               .IsRequired();
+
+        builder.Property(a => a.Duration)
+               .IsRequired();
+
         builder.Property(a => a.Status)
-            .HasConversion<int>()
-            .IsRequired();
+               .IsRequired()
+               .HasConversion<int>();
+
+        builder.Property(a => a.Notes)
+               .HasMaxLength(1000);
+
+        builder.Property(a => a.CancellationReason)
+               .HasMaxLength(500);
+
+        builder.Property(a => a.ConsultationFee)
+               .HasPrecision(10, 2);
+
+        builder.Property(a => a.IsPaid)
+               .IsRequired();
 
         builder.HasOne(a => a.Patient)
-          .WithMany(p => p.Appointments)
-          .HasForeignKey(a => a.PatientId)
-          .OnDelete(DeleteBehavior.Restrict);
+               .WithMany(p => p.Appointments)
+               .HasForeignKey(a => a.PatientId)
+               .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne(a => a.Treatment)
-            .WithOne(t => t.Appointment)
-            .HasForeignKey<Treatment>(t => t.AppointmentId);
+               .WithOne(t => t.Appointment)
+               .HasForeignKey<Treatment>(t => t.AppointmentId)
+               .OnDelete(DeleteBehavior.Restrict);
     }
 }

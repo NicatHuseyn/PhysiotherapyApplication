@@ -31,13 +31,13 @@ public static class PersistenceRegistration
         services.AddScoped(typeof(IGenericRepository<>),typeof(GenericRepository<>));
 
         services.AddScoped<IAppointmentRepository,AppointmentRepository>();
-        services.AddScoped<IDoctorRepository, DoctorRepository>();
         services.AddScoped<IDocumentRepository, DocumentRepository>();
         services.AddScoped<IExerciseRepository, ExerciseRepository>();
         services.AddScoped<IMedicalHistoryRepository, MedicalHistoryRepository>();
-        services.AddScoped<IPatientRepository, PatientRepository>();
         services.AddScoped<IPrescriptionRepository, PrescriptionRepository>();
         services.AddScoped<ITreatmentRepository,TreatmentRepository>();
+        services.AddScoped<IDoctorDetailRepository,DoctorDetailRepository>();
+        services.AddScoped<IPatientDetailRepository,PatientDetailRepository>();
 
         return services;
     }
