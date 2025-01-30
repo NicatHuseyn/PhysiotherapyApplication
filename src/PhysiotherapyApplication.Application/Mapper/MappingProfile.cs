@@ -20,8 +20,7 @@ public class MappingProfile:Profile
         foreach (var type in types)
         {
             // Create an instance of each found Profile class
-            var profile = (Profile)Activator.CreateInstance(type);
-            
+            var profile = (Profile)Activator.CreateInstance(type);   
         }
     }
 }
