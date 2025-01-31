@@ -37,9 +37,6 @@ builder.Services
     .AddDefaultTokenProviders();
 #endregion
 
-#region Custom Middlewares
-
-#endregion
 
 
 builder.Services.AddControllers(options =>
