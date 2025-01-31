@@ -4,6 +4,9 @@ using PhysiotherapyApplication.Application;
 using PhysiotherapyApplication.Domain.Entities.IdentityModels;
 using PhysiotherapyApplication.Persistence;
 using PhysiotherapyApplication.Persistence.Contexts;
+using PhysiotherapyApplication.WebApi.Common;
+using PhysiotherapyApplication.WebApi.Filters;
+using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,11 +37,19 @@ builder.Services
     .AddDefaultTokenProviders();
 #endregion
 
+#region Custom Middlewares
 
-builder.Services.AddControllers();
+#endregion
+
+
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<FluentValidationFilter>();
+});
 
 // Closed .NET Default messages
 builder.Services.Configure<ApiBehaviorOptions>(options=>options.SuppressModelStateInvalidFilter = true);
+
 
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -49,10 +60,16 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.MapScalarApiReference();
     app.MapOpenApi();
 }
 
 app.UseHttpsRedirection();
+
+
+app.UseExceptionHandler(_ => { });
+
+app.UseCustomExceptionHandler();
 
 app.UseAuthorization();
 app.UseAuthentication();

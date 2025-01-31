@@ -3,10 +3,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PhysiotherapyApplication.Application.Contracts.Persistence.Repositories;
 using PhysiotherapyApplication.Application.Contracts.Persistence.Repositories.BaseRepository;
+using PhysiotherapyApplication.Application.Contracts.Persistence.UnitOfWork;
+using PhysiotherapyApplication.Application.Features.AppointmentFeatures.Services;
 using PhysiotherapyApplication.Persistence.Contexts;
 using PhysiotherapyApplication.Persistence.Options;
 using PhysiotherapyApplication.Persistence.Repositories;
 using PhysiotherapyApplication.Persistence.Repositories.BaseRepository;
+using PhysiotherapyApplication.Persistence.Services.AppointmentService;
+using PhysiotherapyApplication.Persistence.UnitOfWork;
 
 namespace PhysiotherapyApplication.Persistence;
 
@@ -29,6 +33,7 @@ public static class PersistenceRegistration
         #endregion
 
         services.AddScoped(typeof(IGenericRepository<>),typeof(GenericRepository<>));
+        services.AddScoped<IUnitOfWork,PhysiotherapyApplication.Persistence.UnitOfWork.UnitOfWork>();
 
         services.AddScoped<IAppointmentRepository,AppointmentRepository>();
         services.AddScoped<IDocumentRepository, DocumentRepository>();
@@ -38,6 +43,11 @@ public static class PersistenceRegistration
         services.AddScoped<ITreatmentRepository,TreatmentRepository>();
         services.AddScoped<IDoctorDetailRepository,DoctorDetailRepository>();
         services.AddScoped<IPatientDetailRepository,PatientDetailRepository>();
+
+        // Services
+        services.AddScoped<IAppointmentService,AppointmentService>();
+
+        
 
         return services;
     }

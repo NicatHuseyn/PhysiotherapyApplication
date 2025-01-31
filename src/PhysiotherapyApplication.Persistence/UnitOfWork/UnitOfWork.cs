@@ -5,30 +5,42 @@ using PhysiotherapyApplication.Persistence.Contexts;
 
 namespace PhysiotherapyApplication.Persistence.UnitOfWork;
 
-public class UnitOfWork : IUnitOfWork
+public class UnitOfWork : IUnitOfWork, IDisposable
 {
     private readonly PhysiotherapyApplicationDbContext _context;
-    private readonly IDbContextTransaction _transaction;
+    private IDbContextTransaction _transaction;
 
-    public UnitOfWork(PhysiotherapyApplicationDbContext context, IDbContextTransaction transaction)
+    public UnitOfWork(PhysiotherapyApplicationDbContext context)
     {
         _context = context;
-        _transaction = _context.Database.BeginTransaction();
+    }
+
+    public async Task BeginTransactionAsync()
+    {
+        _transaction = await _context.Database.BeginTransactionAsync();
     }
 
     public async Task<bool> CommitAsync(bool state = true)
     {
         try
         {
-            await SaveChangesAsync();
-            if (state)
+            await _context.SaveChangesAsync();
+            if (state && _transaction != null)
+            {
                 await _transaction.CommitAsync();
-
+                await _transaction.DisposeAsync();
+                _transaction = null;
+            }
             return true;
         }
-        catch 
+        catch
         {
-            await _transaction.RollbackAsync();
+            if (_transaction != null)
+            {
+                await _transaction.RollbackAsync();
+                await _transaction.DisposeAsync();
+                _transaction = null;
+            }
             throw;
         }
     }
@@ -43,6 +55,5 @@ public class UnitOfWork : IUnitOfWork
         _context?.Dispose();
         _transaction?.Dispose();
     }
-
-
 }
+

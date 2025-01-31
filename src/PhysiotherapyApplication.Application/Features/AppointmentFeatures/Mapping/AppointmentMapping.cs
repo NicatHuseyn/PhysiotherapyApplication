@@ -9,11 +9,10 @@ public class AppointmentMapping : Profile
     public AppointmentMapping()
     {
         CreateMap<Appointment, CreateAppointmentRequestDto>()
-    .ForMember(dest => dest.PatientId, opt => opt.MapFrom(src => src.PatientId))
-    .ForMember(dest => dest.AppointmentDateTime, opt => opt.MapFrom(src => src.AppointmentDateTime))
-    .ForMember(dest => dest.Notes, opt => opt.MapFrom(src => src.Notes))
-    .ForMember(dest => dest.ConsultationFee, opt => opt.MapFrom(src => src.ConsultationFee))
-    .ForMember(dest => dest.TreatmentId, opt => opt.MapFrom(src => src.Treatment?.Id))
-    .ReverseMap();
+        .ForMember(dest => dest.PatientId, opt => opt.MapFrom(src => src.PatientId))
+        .ForMember(dest => dest.AppointmentDateTime, opt => opt.MapFrom(src => src.AppointmentDateTime))
+        .ForMember(dest => dest.Notes, opt => opt.MapFrom(src => src.Notes))
+        .ForMember(dest => dest.ConsultationFee, opt => opt.MapFrom(src => src.ConsultationFee))
+        .ReverseMap();
     }
 }
