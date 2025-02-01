@@ -1,3 +1,3 @@
 # PhysiotherapyApplication
 
-Apllication is progress
+The application is progressing.
