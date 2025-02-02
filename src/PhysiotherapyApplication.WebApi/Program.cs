@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using PhysiotherapyApplication.Application;
 using PhysiotherapyApplication.Domain.Entities.IdentityModels;
+using PhysiotherapyApplication.Domain.Options;
 using PhysiotherapyApplication.Persistence;
 using PhysiotherapyApplication.Persistence.Contexts;
 using PhysiotherapyApplication.WebApi.Common;
@@ -12,6 +12,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+#region Options Configuration
+builder.Services.Configure<ConnectionStringOption>(builder.Configuration.GetSection(ConnectionStringOption.Key));
+#endregion
 
 #region Environment Configurations
 
@@ -32,7 +35,7 @@ builder.Services.AddApplicationService();
 
 #region Identity Configurations
 builder.Services
-    .AddIdentity<ApplicationUser, IdentityRole>()
+    .AddIdentity<ApplicationUser, ApplicationRole>()
     .AddEntityFrameworkStores<PhysiotherapyApplicationDbContext>()
     .AddDefaultTokenProviders();
 #endregion
@@ -43,10 +46,6 @@ builder.Services.AddControllers(options =>
 {
     options.Filters.Add<FluentValidationFilter>();
 });
-
-// Closed .NET Default messages
-builder.Services.Configure<ApiBehaviorOptions>(options=>options.SuppressModelStateInvalidFilter = true);
-
 
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi

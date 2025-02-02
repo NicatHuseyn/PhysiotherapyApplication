@@ -1,4 +1,4 @@
-﻿namespace PhysiotherapyApplication.Persistence.Options;
+﻿namespace PhysiotherapyApplication.Domain.Options;
 
 public class ConnectionStringOption
 {

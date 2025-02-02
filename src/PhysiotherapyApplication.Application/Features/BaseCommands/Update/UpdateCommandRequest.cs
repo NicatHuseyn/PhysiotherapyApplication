@@ -27,8 +27,6 @@ public class UpdateCommandHandler<TEntity, TRequest>(IGenericRepository<TEntity>
         try
         {
             var entityModel = await repository.GetByIdAsync(request.Id);
-            if (entityModel == null)
-                return ServiceResult.Fail("Data Not Found", System.Net.HttpStatusCode.NotFound);
 
             var dtoAsEntity = mapper.Map(request, entityModel);
 

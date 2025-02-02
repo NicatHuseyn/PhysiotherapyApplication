@@ -20,9 +20,6 @@ public class GetByIdQueryHandler<TEntity, TDto>(IGenericRepository<TEntity> repo
 		{
             var entityModel = await repository.GetByIdAsync(request.Id);
 
-            if (entityModel is null)
-                return ServiceResult<TDto>.Fail("Data Not Found", System.Net.HttpStatusCode.NotFound);
-
             var entityModelAsDto = mapper.Map<TDto>(entityModel);
 
             return ServiceResult<TDto>.Success(entityModelAsDto);

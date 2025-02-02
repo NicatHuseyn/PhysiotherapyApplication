@@ -14,5 +14,7 @@ public class AppointmentMapping : Profile
         .ForMember(dest => dest.Notes, opt => opt.MapFrom(src => src.Notes))
         .ForMember(dest => dest.ConsultationFee, opt => opt.MapFrom(src => src.ConsultationFee))
         .ReverseMap();
+
+        CreateMap<Appointment, AppointmentDto>().ReverseMap();
     }
 }

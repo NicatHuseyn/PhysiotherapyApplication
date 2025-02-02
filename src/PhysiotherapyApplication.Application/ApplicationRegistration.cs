@@ -11,7 +11,7 @@ public static class ApplicationRegistration
     public static IServiceCollection AddApplicationService(this IServiceCollection services)
     {
         #region AutoMapper Configurations
-        services.AddAutoMapper(typeof(MappingProfile));
+        services.AddAutoMapper(Assembly.GetExecutingAssembly());
         #endregion
 
         #region FluentValidation Configurations

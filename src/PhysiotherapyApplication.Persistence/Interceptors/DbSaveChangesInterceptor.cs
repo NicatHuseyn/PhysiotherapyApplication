@@ -6,7 +6,7 @@ namespace PhysiotherapyApplication.Persistence.Interceptors;
 
 public class DbSaveChangesInterceptor : SaveChangesInterceptor
 {
-    private static Dictionary<EntityState, Action<DbContext, IEntityTimeStamps>> _behaviors = new()
+    private readonly static Dictionary<EntityState, Action<DbContext, IEntityTimeStamps>> _behaviors = new()
     {
         { EntityState.Added, AddDataBehavior},
         { EntityState.Modified, UpdateDataBehavior},
@@ -30,10 +30,12 @@ public class DbSaveChangesInterceptor : SaveChangesInterceptor
     {
         entityTimeStamps.DeleteDate = DateTime.UtcNow;
         context.Entry(entityTimeStamps).Property(e => e.UpdateDate).IsModified = false;
+
+        // for soft delete
+        context.Entry(entityTimeStamps).State = EntityState.Modified;
     }
 
-
-    public override ValueTask<int> SavedChangesAsync(SaveChangesCompletedEventData eventData, int result, CancellationToken cancellationToken = default)
+    public override ValueTask<InterceptionResult<int>> SavingChangesAsync(DbContextEventData eventData, InterceptionResult<int> result, CancellationToken cancellationToken = default)
     {
         var dbContext = eventData.Context!.ChangeTracker.Entries<BaseEntity>();
 
@@ -44,12 +46,14 @@ public class DbSaveChangesInterceptor : SaveChangesInterceptor
                 continue;
             }
 
-            _behaviors[entityEntry.State](eventData.Context,entityTimeStamps);
+
+            if (_behaviors.ContainsKey(entityEntry.State))
+            {
+                _behaviors[entityEntry.State](eventData.Context, entityTimeStamps);
+            }
         }
 
 
-        return base.SavedChangesAsync(eventData, result, cancellationToken);
+        return base.SavingChangesAsync(eventData, result, cancellationToken);
     }
-
-
 }

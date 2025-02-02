@@ -6,7 +6,7 @@
         DateTime CreateDate, 
         DateTime? UpdateDate, 
         DateTime? DeleteDate, 
-        Guid PatientId, 
+        string PatientId, 
         string PatientName, 
         DateTime? AppointmentDateTime, 
         TimeSpan Duration, 
@@ -14,7 +14,6 @@
         string Notes, 
         string CancellationReason, 
         decimal? ConsultationFee, 
-        bool isPaid, 
-        Guid TreatmentId, 
+        bool isPaid,
         string TreatmentName);
 }

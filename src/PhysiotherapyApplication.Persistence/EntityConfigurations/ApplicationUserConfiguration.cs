@@ -16,9 +16,6 @@ public class ApplicationUserConfiguration : IEntityTypeConfiguration<Application
                .IsRequired()
                .HasMaxLength(50);
 
-        builder.Property(u => u.DateOfBirht)
-               .IsRequired();
-
         builder.Property(u => u.Address)
                .HasMaxLength(255);
 

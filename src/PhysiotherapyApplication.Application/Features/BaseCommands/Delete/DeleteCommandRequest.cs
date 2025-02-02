@@ -17,7 +17,6 @@ public class DeleteCommandRequest<TEntity>:IRequest<ServiceResult>
     }
 }
 
-
 public class DeleteCommandHandler<TEntity> : IRequestHandler<DeleteCommandRequest<TEntity>, ServiceResult> where TEntity : BaseEntity
 {
     private readonly IGenericRepository<TEntity> _repository;
@@ -34,8 +33,6 @@ public class DeleteCommandHandler<TEntity> : IRequestHandler<DeleteCommandReques
         try
         {
             var model = await _repository.GetByIdAsync(request.Id);
-            if (model == null)
-                return ServiceResult.Fail("Data Not Found", System.Net.HttpStatusCode.NotFound);
 
             await _repository.DeleteAsync(model);
             await _unitOfWork.CommitAsync();

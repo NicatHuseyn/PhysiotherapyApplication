@@ -1,16 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using PhysiotherapyApplication.Application.Contracts.Persistence.Repositories;
-using PhysiotherapyApplication.Application.Contracts.Persistence.Repositories.BaseRepository;
-using PhysiotherapyApplication.Application.Contracts.Persistence.UnitOfWork;
-using PhysiotherapyApplication.Application.Features.AppointmentFeatures.Services;
+using PhysiotherapyApplication.Application;
+using PhysiotherapyApplication.Domain.Options;
 using PhysiotherapyApplication.Persistence.Contexts;
-using PhysiotherapyApplication.Persistence.Options;
-using PhysiotherapyApplication.Persistence.Repositories;
-using PhysiotherapyApplication.Persistence.Repositories.BaseRepository;
-using PhysiotherapyApplication.Persistence.Services.AppointmentService;
-using PhysiotherapyApplication.Persistence.UnitOfWork;
+using PhysiotherapyApplication.Persistence.Interceptors;
+using PhysiotherapyApplication.WebApi.Filters;
+using Scrutor;
 
 namespace PhysiotherapyApplication.Persistence;
 
@@ -28,26 +25,25 @@ public static class PersistenceRegistration
             {
                 sqlServerOptionsAction.MigrationsAssembly(typeof(PersistenceAssembly).Assembly.FullName);
             });
+            options.AddInterceptors(new DbSaveChangesInterceptor());
         });
 
         #endregion
 
-        services.AddScoped(typeof(IGenericRepository<>),typeof(GenericRepository<>));
-        services.AddScoped<IUnitOfWork,PhysiotherapyApplication.Persistence.UnitOfWork.UnitOfWork>();
+        services.Scan(scan => scan
+        .FromAssemblies(typeof(ApplicationAssembly).Assembly, typeof(PersistenceAssembly).Assembly)
+        .AddClasses(publicOnly: false)
+        .UsingRegistrationStrategy(RegistrationStrategy.Skip)
+        .AsMatchingInterface()
+        .WithScopedLifetime()
 
-        services.AddScoped<IAppointmentRepository,AppointmentRepository>();
-        services.AddScoped<IDocumentRepository, DocumentRepository>();
-        services.AddScoped<IExerciseRepository, ExerciseRepository>();
-        services.AddScoped<IMedicalHistoryRepository, MedicalHistoryRepository>();
-        services.AddScoped<IPrescriptionRepository, PrescriptionRepository>();
-        services.AddScoped<ITreatmentRepository,TreatmentRepository>();
-        services.AddScoped<IDoctorDetailRepository,DoctorDetailRepository>();
-        services.AddScoped<IPatientDetailRepository,PatientDetailRepository>();
+        .AddClasses(classes=>classes.AssignableTo(typeof(NotFoundFilter<>)))
+        .AsSelf()
+        .WithScopedLifetime()
+        );
 
-        // Services
-        services.AddScoped<IAppointmentService,AppointmentService>();
-
-        
+        // Closed .NET Default messages
+        services.Configure<ApiBehaviorOptions>(options => options.SuppressModelStateInvalidFilter = true);
 
         return services;
     }

@@ -6,7 +6,7 @@ using PhysiotherapyApplication.Domain.Entities.IdentityModels;
 
 namespace PhysiotherapyApplication.Persistence.Contexts;
 
-public class PhysiotherapyApplicationDbContext(DbContextOptions options) : IdentityDbContext<ApplicationUser>(options)
+public class PhysiotherapyApplicationDbContext(DbContextOptions options) : IdentityDbContext<ApplicationUser, ApplicationRole,string>(options)
 {
     public DbSet<Patient> Patients { get; set; }
     public DbSet<Doctor> Doctors { get; set; }
