@@ -48,11 +48,6 @@ public class TreatmentConfiguration : BaseEntityConfiguration<Treatment>
                .HasForeignKey(e => e.TreatmentId)
                .OnDelete(DeleteBehavior.Cascade);
 
-        builder.HasMany(t => t.Prescriptions)
-               .WithOne(p => p.Treatment)
-               .HasForeignKey(p => p.TreatmentId)
-               .OnDelete(DeleteBehavior.Cascade);
-
         builder.HasMany(t => t.Documents)
                .WithOne(d => d.Treatment)
                .HasForeignKey(d => d.TreatmentId)

@@ -3,6 +3,6 @@ using PhysiotherapyApplication.Domain.Entities;
 
 namespace PhysiotherapyApplication.Application.Contracts.Persistence.Repositories;
 
-public interface IPatientDetailRepository:IGenericRepository<PatientDetail>
+public interface IPatientRepository:IGenericRepository<Patient>
 {
 }

@@ -1,6 +1,6 @@
 ﻿namespace PhysiotherapyApplication.Domain.Entities.Common;
 
-public class BaseEntity:IBaseEntity<Guid>, IEntityTimeStamps
+public abstract class BaseEntity:IBaseEntity<Guid>, IEntityTimeStamps
 {
     public Guid Id { get; set; }
     public DateTime CreateDate { get; set; }

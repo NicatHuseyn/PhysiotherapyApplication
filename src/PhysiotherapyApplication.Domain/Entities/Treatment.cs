@@ -4,7 +4,7 @@ namespace PhysiotherapyApplication.Domain.Entities;
 
 public class Treatment : BaseEntity
 {
-    public string PatientId { get; set; }
+    public Guid PatientId { get; set; }
 
     public virtual Patient Patient { get; set; }
 
@@ -27,6 +27,5 @@ public class Treatment : BaseEntity
     public bool RequiresFollowUp { get; set; }
 
     public virtual ICollection<Exercise> Exercises { get; set; }
-    public virtual ICollection<Prescription> Prescriptions { get; set; }
     public virtual ICollection<Document> Documents { get; set; }
 }

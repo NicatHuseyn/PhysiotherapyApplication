@@ -5,6 +5,6 @@ using PhysiotherapyApplication.Persistence.Repositories.BaseRepository;
 
 namespace PhysiotherapyApplication.Persistence.Repositories;
 
-public class PatientDetailRepository(PhysiotherapyApplicationDbContext context) : GenericRepository<PatientDetail>(context), IPatientDetailRepository
+public class DoctorRepository(PhysiotherapyApplicationDbContext context) : GenericRepository<Doctor>(context), IDoctorRepository
 {
 }

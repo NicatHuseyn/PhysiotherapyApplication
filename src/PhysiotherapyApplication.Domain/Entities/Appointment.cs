@@ -5,7 +5,7 @@ namespace PhysiotherapyApplication.Domain.Entities;
 
 public class Appointment : BaseEntity
 {
-    public string PatientId { get; set; }
+    public Guid PatientId { get; set; }
     public Patient Patient { get; set; }
 
     public DateTime AppointmentDateTime { get; set; }

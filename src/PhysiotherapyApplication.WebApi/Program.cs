@@ -14,6 +14,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 #region Options Configuration
 builder.Services.Configure<ConnectionStringOption>(builder.Configuration.GetSection(ConnectionStringOption.Key));
+
+builder.Services.Configure<CustomTokenOption>(builder.Configuration.GetSection(CustomTokenOption.Key));
 #endregion
 
 #region Environment Configurations
