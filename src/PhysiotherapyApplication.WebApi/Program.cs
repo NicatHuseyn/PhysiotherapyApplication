@@ -18,8 +18,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.Configure<ConnectionStringOption>(builder.Configuration.GetSection(ConnectionStringOption.Key));
 
 builder.Services.Configure<CustomTokenOption>(builder.Configuration.GetSection(CustomTokenOption.Key));
-
-builder.Services.Configure<GoogleConfigurationOption>(builder.Configuration.GetSection(GoogleConfigurationOption.Key));
 #endregion
 
 #region Environment Configurations

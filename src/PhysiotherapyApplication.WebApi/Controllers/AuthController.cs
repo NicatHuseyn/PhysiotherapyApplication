@@ -37,11 +37,6 @@ namespace PhysiotherapyApplication.WebApi.Controllers
             return CreateActionResult(result);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> GoogleLogin(GoogleLoginUserCommand googleLoginUserCommand)
-        {
-            var result = await mediator.Send(googleLoginUserCommand);
-            return CreateActionResult(result);
-        }
+        
     }
 }
