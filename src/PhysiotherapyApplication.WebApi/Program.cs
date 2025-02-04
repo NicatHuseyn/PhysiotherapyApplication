@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using PhysiotherapyApplication.Application;
 using PhysiotherapyApplication.Domain.Entities.IdentityModels;
 using PhysiotherapyApplication.Domain.Options;
 using PhysiotherapyApplication.Persistence;
 using PhysiotherapyApplication.Persistence.Contexts;
+using PhysiotherapyApplication.Persistence.Services.AuthService;
 using PhysiotherapyApplication.WebApi.Common;
 using PhysiotherapyApplication.WebApi.Filters;
 using Scalar.AspNetCore;
@@ -16,6 +18,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.Configure<ConnectionStringOption>(builder.Configuration.GetSection(ConnectionStringOption.Key));
 
 builder.Services.Configure<CustomTokenOption>(builder.Configuration.GetSection(CustomTokenOption.Key));
+
+builder.Services.Configure<GoogleConfigurationOption>(builder.Configuration.GetSection(GoogleConfigurationOption.Key));
 #endregion
 
 #region Environment Configurations
@@ -42,7 +46,31 @@ builder.Services
     .AddDefaultTokenProviders();
 #endregion
 
+#region Authentication Configurations
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+    .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+    {
+        var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<CustomTokenOption>();
 
+        options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+        {
+            ValidIssuer = tokenOptions.Issuer,
+            ValidAudience = tokenOptions.Auidence,
+            IssuerSigningKey = SignService.GetSymmetricSecurityKey(tokenOptions.SecurityKey),
+
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateIssuerSigningKey = true,
+            ValidateLifetime = true,
+            ClockSkew = TimeSpan.Zero,
+        };
+    });
+
+#endregion
 
 builder.Services.AddControllers(options =>
 {

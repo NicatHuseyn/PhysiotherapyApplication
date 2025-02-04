@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using PhysiotherapyApplication.Application.Contracts.Persistence.Repositories.BaseRepository;
 using PhysiotherapyApplication.Application.Contracts.Persistence.UnitOfWork;
+using PhysiotherapyApplication.Application.Features.AuthFeatures.AuthenticationUser;
 using PhysiotherapyApplication.Application.Features.AuthFeatures.DTOs;
 using PhysiotherapyApplication.Application.Features.AuthFeatures.Services;
 using PhysiotherapyApplication.Application.Wrappers;
@@ -16,7 +17,7 @@ public class AuthenticationService(ITokenService tokenService, UserManager<Appli
     {
         var exsistRefreshToken = await refreshTokenRepository.GetAsync(r=>r.UserRefreshToken == refreshToken);
 
-        if (exsistRefreshToken is null)
+        if (exsistRefreshToken != null)
             return ServiceResult<TokenDto>.Fail("Refresh Token Not Found", System.Net.HttpStatusCode.NotFound);
 
         var user = await userManager.FindByIdAsync(exsistRefreshToken.ApplicationUserId);
@@ -33,14 +34,14 @@ public class AuthenticationService(ITokenService tokenService, UserManager<Appli
         return ServiceResult<TokenDto>.Success(tokenDto);
     }
 
-    public async Task<ServiceResult<TokenDto>> CreateTokenAsync(LoginDto loginDto)
+    public async Task<ServiceResult<TokenDto>> CreateTokenAsync(LoginUserCommand authenticationUser)
     {
-        if (loginDto is null)
-            throw new ArgumentNullException(nameof(loginDto));
+        if (authenticationUser is null)
+            throw new ArgumentNullException(nameof(authenticationUser));
 
-        var user = await userManager.FindByEmailAsync(loginDto.UserNameOrEmail) ?? await userManager.FindByNameAsync(loginDto.UserNameOrEmail);
+        var user = await userManager.FindByEmailAsync(authenticationUser.UserNameOrEmail) ?? await userManager.FindByNameAsync(authenticationUser.UserNameOrEmail);
 
-        var checkPassword = await userManager.CheckPasswordAsync(user, loginDto.Password);
+        var checkPassword = await userManager.CheckPasswordAsync(user, authenticationUser.Password);
         if (user is null || !checkPassword)
             return ServiceResult<TokenDto>.Fail("Username or Password is wrong", HttpStatusCode.BadRequest);
 
@@ -56,11 +57,11 @@ public class AuthenticationService(ITokenService tokenService, UserManager<Appli
                 Expiration = token.RefreshTokenExpiration,
             });
         }
-        else
-        {
-            userRefreshToken.UserRefreshToken = token.RefreshToken;
-            userRefreshToken.Expiration = token.RefreshTokenExpiration;
-        }
+        //else
+        //{
+        //    userRefreshToken.UserRefreshToken = token.RefreshToken;
+        //    userRefreshToken.Expiration = token.RefreshTokenExpiration;
+        //}
 
         await unitOfWork.CommitAsync();
 

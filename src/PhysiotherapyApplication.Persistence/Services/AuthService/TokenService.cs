@@ -39,7 +39,7 @@ public class TokenService : ITokenService
         // Create JWT Token
         JwtSecurityToken jwtSecurityToken = new JwtSecurityToken
             (
-            issuer:_customTokenOption.Issure,
+            issuer:_customTokenOption.Issuer,
             expires:accessTokenExpiration,
             notBefore:DateTime.UtcNow,
             claims:claims,
@@ -76,14 +76,15 @@ public class TokenService : ITokenService
 
         var claims = new List<Claim>
         {
-        new(ClaimTypes.NameIdentifier, applicationUser.Id),
-        new(JwtRegisteredClaimNames.Email, applicationUser.Email ?? string.Empty),
-        new(ClaimTypes.Name, applicationUser.UserName ?? string.Empty),
-        new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-        new(JwtRegisteredClaimNames.Aud, audience)
+            new(ClaimTypes.NameIdentifier, applicationUser.Id),
+            new(JwtRegisteredClaimNames.Email, applicationUser.Email ?? string.Empty),
+            new(ClaimTypes.Name, applicationUser.UserName ?? string.Empty),
+            new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            new(JwtRegisteredClaimNames.Aud, audience)
         };
 
-        claims.AddRange(userRoles.Select(role => new Claim(ClaimTypes.Role, role)));
+
+        //claims.AddRange(userRoles.Select(role => new Claim(ClaimTypes.Role, role)));
 
         return claims;
     }
