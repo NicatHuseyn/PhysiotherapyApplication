@@ -21,7 +21,6 @@
 
   <ItemGroup>
     <Folder Include="Features\AppointmentFeatures\Mapping\" />
-    <Folder Include="Features\AuthFeatures\Requirements\" />
   </ItemGroup>
 
 </Project>

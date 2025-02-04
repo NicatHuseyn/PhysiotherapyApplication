@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,9 +39,13 @@ public static class PersistenceRegistration
         .AsMatchingInterface()
         .WithScopedLifetime()
 
-        .AddClasses(classes=>classes.AssignableTo(typeof(NotFoundFilter<>)))
+        .AddClasses(classes => classes.AssignableTo(typeof(NotFoundFilter<>)))
         .AsSelf()
         .WithScopedLifetime()
+
+        .AddClasses(classes=>classes.AssignableTo<IAuthorizationHandler>())
+        .AsImplementedInterfaces()
+        .WithSingletonLifetime()
         );
 
         // Closed .NET Default messages
