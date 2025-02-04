@@ -25,6 +25,7 @@ public static class PersistenceRegistration
             {
                 sqlServerOptionsAction.MigrationsAssembly(typeof(PersistenceAssembly).Assembly.FullName);
             });
+
             options.AddInterceptors(new DbSaveChangesInterceptor());
         });
 

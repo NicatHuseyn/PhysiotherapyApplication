@@ -80,7 +80,9 @@ public class TokenService : ITokenService
             new(JwtRegisteredClaimNames.Email, applicationUser.Email ?? string.Empty),
             new(ClaimTypes.Name, applicationUser.UserName ?? string.Empty),
             new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            new(JwtRegisteredClaimNames.Aud, audience)
+            new(JwtRegisteredClaimNames.Aud, audience),
+            new("address", applicationUser.Address.ToString()),
+            new("age", applicationUser.Age.ToString()),
         };
 
 

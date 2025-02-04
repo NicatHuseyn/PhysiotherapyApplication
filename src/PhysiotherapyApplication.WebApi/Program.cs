@@ -24,11 +24,11 @@ builder.Services.Configure<GoogleConfigurationOption>(builder.Configuration.GetS
 
 #region Environment Configurations
 
-string env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+string env = builder.Environment.EnvironmentName;
 
 builder.Configuration.SetBasePath(Directory.GetCurrentDirectory())
-    .AddJsonFile("appsettings.json", optional: false)
-    .AddJsonFile($"appsettings.{env}.json", optional: false)
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange:true)
+    .AddJsonFile($"appsettings.{env}.json", optional: true)
     .AddEnvironmentVariables()
     .Build();
 
